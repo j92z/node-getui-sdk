@@ -47,20 +47,20 @@ class PushMessage extends GeTui {
   setTarget(methodName, message) {
     switch (methodName) {
       case 'pushMessageToApp':
-        const pushTargets = message.uidList.map((uid) => {
+        var targets = message.uidList.map((uid) => {
           return new Target({ appId: this._options.APPID, alias: uid })
         })
         break;
       case 'pushMessageToList':
-        const pushTargets = message.uidList.map((uid) => {
+          var targets = message.uidList.map((uid) => {
           return new Target({ appId: this._options.APPID, clientId: uid })
         })
         break;
       case 'pushMessageToSingle':
       default:
-        const pushTargets = new Target({ appId: this._options.APPID, clientId: message.uidList.pop() });
-      return pushTargets;
+        var targets = new Target({ appId: this._options.APPID, clientId: message.uidList.pop() });
     }
+    return targets;
   }
 
   setMessageTemplate(message = {}, templateType) {
