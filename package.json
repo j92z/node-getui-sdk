@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/j92z/node-getui-sdk/issues"
   },
-  "homepage": "https://github.com/j92z/node-getui-sdk#readme"
+  "homepage": "https://github.com/j92z/node-getui-sdk#readme",
+  "dependencies": {
+    "crypto": "0.0.3",
+    "protobufjs": "^3.8.2",
+    "request": "^2.51.0",
+    "util": "^0.10.3"
+  }
 }
