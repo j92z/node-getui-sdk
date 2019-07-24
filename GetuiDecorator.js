@@ -54,12 +54,12 @@ class PushMessage extends GeTui {
         break;
       case 'pushMessageToList':
           var targets = uidList.map((uid) => {
-          return new Target({ appId: this._options.APPID, clientId: uid })
+          return new Target({ appId: this._options.APPID, alias: uid })
         })
         break;
       case 'pushMessageToSingle':
       default:
-        var targets = new Target({ appId: this._options.APPID, clientId: uidList[0] });
+        var targets = new Target({ appId: this._options.APPID, alias: uidList[0] });
     }
     return targets;
   }
