@@ -59,7 +59,7 @@ class PushMessage extends GeTui {
         break;
       case 'pushMessageToSingle':
       default:
-        var targets = new Target({ appId: this._options.APPID, clientId: uidList.pop() });
+        var targets = new Target({ appId: this._options.APPID, clientId: uidList[0] });
     }
     return targets;
   }
