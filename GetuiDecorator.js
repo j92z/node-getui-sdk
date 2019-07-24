@@ -69,7 +69,7 @@ class PushMessage extends GeTui {
       case 'transmission':
         return this.composeAPNTransmissionMessage(message)
       case 'notification':
-        return new NotificationTemplate(message)
+        return new NotificationTemplate(this.composeNotificationMessage(message))
       case 'link':
         return new LinkTemplate(this.composeLinkMessage(message))
       case 'load':
@@ -210,6 +210,21 @@ class PushMessage extends GeTui {
       isVibrate: true,
       isClearable: true,
       url: message.url
+    }
+  }
+
+  composeNotificationMessage(message) {
+    return {
+      appId: this._options.APPID,
+      appkey: this._options.APPKEY,
+      title: message.title || '',
+      text: message.text || '',
+      logo: message.logo || message.url || '',
+      isRing: true,
+      isVibrate: true,
+      isClearable: true,
+      transmissionType: message.transmissionType || 1,
+      transmissionContent: message.transmissionContent || ''
     }
   }
 
