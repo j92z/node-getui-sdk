@@ -150,20 +150,15 @@ class PushMessage extends GeTui {
   pushMessageToList(messageConfig, pushTargets) {
     return new Promise((resolve, reject) => {
       super.getContentId(messageConfig, null, (err, res) => {
-
         console.log("GETUI PUSH MESSAGE TO LIST GET CONTENTID HAVE DONE:", res)
-
         super.pushMessageToList(res, pushTargets, (err, res) => {
-
           console.log("GETUI PUSH MESSAGE TO LIST HAVE DONE:", res)
-
           if (!err && res && 'ok' === res.result) {
-            return resolve({ code: 0, message: '推送成功' })
+            resolve({ code: 0, message: '推送成功' })
+          } else {
+            console.log("GETUI PUSH MESSAGE TO LIST HAVE ERR:", err)
+            resolve({ code: 100000, message: '推送错误' })
           }
-
-          console.log("GETUI PUSH MESSAGE TO LIST HAVE ERR:", err)
-
-          resolve({ code: 100000, message: '推送错误' })
         })
       })
     })
@@ -172,28 +167,21 @@ class PushMessage extends GeTui {
   pushMessageToSingle(messageConfig, pushTargets) {
     return new Promise((resolve, reject) => {
       super.pushMessageToSingle(messageConfig, pushTargets, (err, res) => {
-
-        if (res && res.result === 'ok') {
-          return resolve({ code: 0, message: '推送成功' })
-        }
-
         console.log("GETUI PUSH MESSAGE TO SINGLE HAVE DONE:", res)
-
-        if (err && err.exception && err.exception instanceof RequestError) {
+        if (res && res.result === 'ok') {
+          resolve({ code: 0, message: '推送成功' })
+        } else if (res && !err) {
+          resolve({ code: 1, message: res })
+        } else if (err && err.exception && err.exception instanceof RequestError) {
           const requestId = err.exception.requestId
-
           super.pushMessageToSingle(messageConfig, pushTargets, requestId, (err, res) => {
-
-            console.log("GETUI PUSH MESSAGE TO SINGLE HAVE DONE:", res)
-
             if (!err && 'ok' === res.result) {
-              return resolve({ code: 0, message: '推送成功' })
+              resolve({ code: 0, message: '推送成功' })
             }
-
-            console.log("GETUI PUSH MESSAGE TO SINGLE HAVE DONE:", err)
-
             resolve({ code: 100000, message: '推送错误' })
           })
+        } else {
+          resolve({ code: 2, message: 'unknown 错误' })
         }
       })
     })
