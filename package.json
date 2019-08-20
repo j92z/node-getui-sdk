@@ -1,6 +1,6 @@
 {
   "name": "node-getui-sdk",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "`npm install node-getui-sdk --save`",
   "main": "index.js",
   "scripts": {
